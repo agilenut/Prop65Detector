@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prop65Detector.Shared", "src\Shared\Prop65Detector.Shared.csproj", "{8FD94C2F-002E-401C-80ED-92EAF5AEC67C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prop65Detector.Client", "src\Client\Prop65Detector.Client.csproj", "{E9A5B129-89E2-4932-979D-E226B287FEBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prop65Detector.Server", "src\Server\Prop65Detector.Server.csproj", "{92C4FF06-9DBB-4058-8CE7-5466D94C3C8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B487BB8B-A4B9-4813-AB49-3DE2E431EFAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samplefiles", "samplefiles", "{D10FA8F4-F065-4CFF-A70D-3DBCA29E1A1F}"
+	ProjectSection(SolutionItems) = preProject
+		samplefiles\Black Flash.pdf = samplefiles\Black Flash.pdf
+		samplefiles\Green Crayon.pdf = samplefiles\Green Crayon.pdf
+		samplefiles\PSM-200 Setting Agent.pdf = samplefiles\PSM-200 Setting Agent.pdf
+		samplefiles\wd-40-multi-use-product-aerosol-low-voc-sds-us-ghs.pdf = samplefiles\wd-40-multi-use-product-aerosol-low-voc-sds-us-ghs.pdf
+		samplefiles\Wintrex.pdf = samplefiles\Wintrex.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{FC1AA679-152E-4515-8F66-97CD980DF76F}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{433126AC-E656-4652-8722-9A3F48A06A20}"
+	ProjectSection(SolutionItems) = preProject
+		docs\images\hat.png = docs\images\hat.png
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FD94C2F-002E-401C-80ED-92EAF5AEC67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FD94C2F-002E-401C-80ED-92EAF5AEC67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FD94C2F-002E-401C-80ED-92EAF5AEC67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FD94C2F-002E-401C-80ED-92EAF5AEC67C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A5B129-89E2-4932-979D-E226B287FEBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A5B129-89E2-4932-979D-E226B287FEBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A5B129-89E2-4932-979D-E226B287FEBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A5B129-89E2-4932-979D-E226B287FEBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92C4FF06-9DBB-4058-8CE7-5466D94C3C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C4FF06-9DBB-4058-8CE7-5466D94C3C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C4FF06-9DBB-4058-8CE7-5466D94C3C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C4FF06-9DBB-4058-8CE7-5466D94C3C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8FD94C2F-002E-401C-80ED-92EAF5AEC67C} = {B487BB8B-A4B9-4813-AB49-3DE2E431EFAA}
+		{E9A5B129-89E2-4932-979D-E226B287FEBC} = {B487BB8B-A4B9-4813-AB49-3DE2E431EFAA}
+		{92C4FF06-9DBB-4058-8CE7-5466D94C3C8A} = {B487BB8B-A4B9-4813-AB49-3DE2E431EFAA}
+		{433126AC-E656-4652-8722-9A3F48A06A20} = {FC1AA679-152E-4515-8F66-97CD980DF76F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {71271AC3-3658-4CBE-9CED-357B15D54F3E}
+	EndGlobalSection
+EndGlobal

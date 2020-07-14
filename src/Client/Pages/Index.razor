@@ -1,0 +1,44 @@
+﻿@page "/"
+
+<h1 class="big-title">Prop 65 Detective</h1>
+
+<h2 class="sub-title">Check your Safety Data Sheets for Prop 65 Ingredients</h2>
+
+<div class="drag-drop-zone">
+    Drop files here or click to browse!
+    <InputFile multiple OnChange="LoadFiles" accept=".pdf" />
+</div>
+
+<span class="text-danger">@_errorMessage</span>
+
+@if (_files != null)
+{
+    foreach (var file in _files)
+    {
+        <FileRow FileEntry="@file" />
+    }
+}
+
+@code {
+    private const int MaximumUploads = 5;
+
+    private IEnumerable<IFileListEntry> _files;
+    private string _errorMessage;
+
+    private async Task LoadFiles(IFileListEntry[] selectedFiles)
+    {
+        _files = null;
+        StateHasChanged();
+
+        // Give the UI thread a moment to catch up
+        await Task.Delay(1);
+
+        if(selectedFiles != null && selectedFiles.Count() > MaximumUploads)
+        {
+            _errorMessage = $"Upload limit of {MaximumUploads}";
+            return;
+        }
+
+        _files = selectedFiles;
+    }
+}

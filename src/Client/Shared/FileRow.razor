@@ -1,0 +1,103 @@
+﻿@implements IDisposable;
+ 
+@inject HttpClient Http;
+@inject ILogger<FileRow> Logger
+
+<div class="file-row">
+    <div>
+        <h2>@FileEntry.Name</h2>
+        <h6 class="@_messageCssClass">@_message</h6>
+        @if (_ingredients != null)
+        {
+            <ul>
+                @foreach (var ingredient in _ingredients)
+                {
+                    <li>@ingredient</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    private const string ReadyMessageCssClass = "";
+    private const string SuccessMessageCssClass = "text-success";
+    private const string DangerMessageCssClass = "text-danger";
+
+    private string _messageCssClass;
+    private string _message;
+    private IList<Ingredient> _ingredients;
+
+    [Parameter]
+    public IFileListEntry FileEntry { get; set; }
+
+    protected override async Task OnInitializedAsync() => await ScanAsync();
+
+    private async Task ScanAsync()
+    {
+        _message = $"Scanning...";
+        _messageCssClass = ReadyMessageCssClass;
+        _ingredients = null;
+        StateHasChanged();
+
+        if (FileEntry == null)
+        {
+            _message = "No file found";
+            _messageCssClass = DangerMessageCssClass;
+            return;
+        }
+
+        if (FileEntry.Name == null || Path.GetExtension(FileEntry.Name.ToLower()) != ".pdf")
+        {
+            _message = $"Not a PDF file";
+            _messageCssClass = DangerMessageCssClass;
+            StateHasChanged();
+            return;
+        }
+
+        if (!Validation.IsValidFileSize(FileEntry.Size))
+        {
+            _message = $"File cannot be larger than {Validation.MaxFileSizeInMB}MB";
+            _messageCssClass = DangerMessageCssClass;
+            StateHasChanged();
+            return;
+        }
+
+        try
+        {
+            using var content = new MultipartFormDataContent();
+            content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
+            content.Add(new StreamContent(FileEntry.Data), "file", FileEntry.Name);
+            var response = await Http.PostAsync("api/datasheets", content);
+
+            if(!response.IsSuccessStatusCode)
+            {
+                var apiError = await response.Content.ReadFromJsonAsync<ApiError>();
+                Logger.LogError($"Failure processing {FileEntry.Name}: {apiError.Error}");
+                _message = string.IsNullOrEmpty(apiError.Error) ? "Failed to process document" : apiError.Error;
+                _messageCssClass = DangerMessageCssClass;
+                StateHasChanged();
+                return;
+            }
+
+            var dataSheet = await response.Content.ReadFromJsonAsync<SafetyDataSheet>();
+            _ingredients = dataSheet.Ingredients.ToList();
+
+            _message = $"Found {_ingredients.Count} Prop 65 ingredient(s)";
+            _messageCssClass = SuccessMessageCssClass;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, $"Failure processing {FileEntry.Name}");
+            _message = "Failed to process document";
+            _messageCssClass = DangerMessageCssClass;
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        FileEntry?.Data?.Dispose();
+    }
+}
